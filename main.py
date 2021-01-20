@@ -2,6 +2,8 @@
 
 #Check empty, check character set, save password, log out after 3 tries. Store additional data for account recovery (phone number, birthdate, memorable word)
 import csv
+import input_check
+import ceaser_cypher
 
 def login_query():
     """Login interface for signing into websites. Prompts the user for login details."""
@@ -31,7 +33,7 @@ def login_existing():
         with open ("user_data.csv", "r") as f_csv:
             user_reader = csv.DictReader(f_csv)
             for row in user_reader:
-                if account_name == row["username"] and password == row["password"]:
+                if account_name == row["username"] and password == ceaser_cypher.ceaser_cypher_decoder(row["password"]):
                     entry = True
                     break
             if entry == True:
@@ -44,7 +46,19 @@ def create_new():
     """Create new user account and store password."""
 
     account_name = str(input("What will be your login name?\n"))
-    password = str(input("What will be your password?\n"))
+
+    # Create and check password:
+    while True:
+        password = str(input("What will be your password?\n"))
+        if not input_check.password_check(password):
+            continue
+        else:
+            break
+
+    # Encode password:
+    password = ceaser_cypher.ceaser_cypher_encoder(password)
+
+    # Save password:
     with open ("user_data.csv", "a") as f_csv:
         user_data = [account_name, password]
         user_writer = csv.writer(f_csv)
