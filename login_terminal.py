@@ -25,20 +25,21 @@ def login_existing():
 
     entry = False
     login_attempts = 1
-    while True:
 
+    # Check username and password in database:
+    while True:
         if login_attempts <= 3:
-            account_name = str(input("Name:\n"))
+            username = str(input("Name:\n"))
             password = str(input("Password:\n"))
 
             with open ("user_data.csv", "r") as f_csv:
                 user_reader = csv.DictReader(f_csv)
                 for row in user_reader:
-                    if account_name == row["username"] and password == ceaser_cypher.ceaser_cypher_decoder(row["password"]):
+                    if username == row["username"] and password == ceaser_cypher.ceaser_cypher_decoder(row["password"]):
                         entry = True
                         break
             if entry == True:
-                return print("Hi {}. You are logged in successfully.\n".format(account_name))
+                return print("Hi {}. You are logged in successfully.\n".format(username))
             else:
                 print("We cannot find this username or password.")
                 login_attempts += 1
@@ -52,7 +53,7 @@ def create_new():
     # Create and check username:
     while True:
         username = str(input("What will be your login name?\n"))
-        if not input_check.character_check(username, "username", 5, 10, r"[^\w\.]+"):
+        if not input_check.character_check(username, "username", 5, 10, r"[^\w\.]+") or not input_check.uniqueness_check(username, "user_data.csv"):
             continue
         else:
             break

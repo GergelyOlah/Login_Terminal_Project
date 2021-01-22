@@ -1,5 +1,5 @@
 import re
-
+import csv
 
 def character_check( text, text_type, min_length, max_length, characters):
     """Checks if the input text complies with the requirements"""
@@ -13,4 +13,11 @@ def character_check( text, text_type, min_length, max_length, characters):
         return True
 
 def uniqueness_check(text, database):
-    pass
+    with open (database, "r") as f_csv:
+        user_reader = csv.DictReader(f_csv)
+        for row in user_reader:
+            if text == row["username"]:
+                print("This username is already in use. Please try a different one.")
+                return True
+            else:
+                continue
