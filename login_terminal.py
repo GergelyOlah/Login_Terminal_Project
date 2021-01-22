@@ -1,6 +1,4 @@
 #!/usr/bin python3
-
-#Check empty, check character set, save password, log out after 3 tries. Store additional data for account recovery (phone number, birthdate, memorable word)
 import csv
 import input_check
 import ceaser_cypher
