@@ -9,3 +9,4 @@ Functionalities:
 -locking account after 3 failed login attempt
 -logging out user after set time
 -logging last login time
+-checking the user's internet connection
