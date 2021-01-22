@@ -1,6 +1,6 @@
 #!/usr/bin python3
-import csv
 import input_check
+import csv
 import ceaser_cypher
 
 def login_query():
@@ -17,38 +17,51 @@ def login_query():
             login_existing()
             break
         else:
-            print("Incorrect input.")
+            print("Incorrect input. Type S for signing in or C for creating a enw account.")
             continue
 
 def login_existing():
     """Signing in existing users."""
 
     entry = False
-    while True:
-        account_name = str(input("Name:\n"))
-        password = str(input("Password:\n"))
+    login_attempts = 1
 
-        with open ("user_data.csv", "r") as f_csv:
-            user_reader = csv.DictReader(f_csv)
-            for row in user_reader:
-                if account_name == row["username"] and password == ceaser_cypher.ceaser_cypher_decoder(row["password"]):
-                    entry = True
-                    break
+    # Check username and password in database:
+    while True:
+        if login_attempts <= 3:
+            username = str(input("Name:\n"))
+            password = str(input("Password:\n"))
+
+            with open ("user_data.csv", "r") as f_csv:
+                user_reader = csv.DictReader(f_csv)
+                for row in user_reader:
+                    if username == row["username"] and password == ceaser_cypher.ceaser_cypher_decoder(row["password"]):
+                        entry = True
+                        break
             if entry == True:
-                return print("Hi {}. You are logged in successfully.\n".format(account_name))
+                return print("Hi {}. You are logged in successfully.\n".format(username))
             else:
                 print("We cannot find this username or password.")
+                login_attempts += 1
                 continue
+        else:
+            return print("You have failed to sign in three times. Your account is locked now. Please contact admin.")
 
 def create_new():
     """Create new user account and store password."""
 
-    account_name = str(input("What will be your login name?\n"))
+    # Create and check username:
+    while True:
+        username = str(input("What will be your login name?\n"))
+        if not input_check.character_check(username, "username", 5, 10, r"[^\w\.]+") or not input_check.uniqueness_check(username, "user_data.csv"):
+            continue
+        else:
+            break
 
     # Create and check password:
     while True:
         password = str(input("What will be your password?\n"))
-        if not input_check.password_check(password):
+        if not input_check.character_check(password, "password", 3, 10, r"[^\w]+"):
             continue
         else:
             break
@@ -56,9 +69,12 @@ def create_new():
     # Encode password:
     password = ceaser_cypher.ceaser_cypher_encoder(password)
 
-    # Save password:
+    # Asking for additional data:
+    email = print("What is your email address?")
+
+    # Save data:
     with open ("user_data.csv", "a") as f_csv:
-        user_data = [account_name, password]
+        user_data = [username, password, email]
         user_writer = csv.writer(f_csv)
         user_writer.writerow(user_data)
 
