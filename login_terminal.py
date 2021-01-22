@@ -2,6 +2,7 @@
 import input_check
 import csv
 import ceaser_cypher
+import datetime
 
 def login_query():
     """Login interface for signing into websites. Prompts the user for login details."""
@@ -39,6 +40,7 @@ def login_existing():
                         entry = True
                         break
             if entry == True:
+                login_time = datetime.datetime.today()
                 return print("Hi {}. You are logged in successfully.\n".format(username))
             else:
                 print("We cannot find this username or password.")
@@ -70,11 +72,14 @@ def create_new():
     password = ceaser_cypher.ceaser_cypher_encoder(password)
 
     # Asking for additional data:
-    email = print("What is your email address?")
+    email = str(input("What is your email address? \n"))
+
+    # Time of account creation:
+    initiation = datetime.datetime.today()
 
     # Save data:
     with open ("user_data.csv", "a") as f_csv:
-        user_data = [username, password, email]
+        user_data = [username, password, email, initiation]
         user_writer = csv.writer(f_csv)
         user_writer.writerow(user_data)
 
