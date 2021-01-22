@@ -20,6 +20,7 @@ def ceaser_cypher_encoder(text_to_encrypt):
 
 def ceaser_cypher_decoder(hash_to_decode):
     """Ceaser Cypher Encoder for text messages"""
+    
     encrypted_characters = list(hash_to_decode)
     original_characters = []
     global shift

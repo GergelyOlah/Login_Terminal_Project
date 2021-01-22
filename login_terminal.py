@@ -69,9 +69,12 @@ def create_new():
     # Encode password:
     password = ceaser_cypher.ceaser_cypher_encoder(password)
 
-    # Save password:
+    # Asking for additional data:
+    email = print("What is your email address?")
+
+    # Save data:
     with open ("user_data.csv", "a") as f_csv:
-        user_data = [username, password]
+        user_data = [username, password, email]
         user_writer = csv.writer(f_csv)
         user_writer.writerow(user_data)
 
