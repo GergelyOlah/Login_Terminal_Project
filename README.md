@@ -23,8 +23,6 @@ Terminal login interface with encrypted password storage and further funcionalit
 -checking the user's internet connection
 
 ## Manual:
-Run _terminal_login.py_ from shell:
+Run **_terminal_login.py_** from shell:
 
-'''python
 python3 terminal_login.py
-'''
