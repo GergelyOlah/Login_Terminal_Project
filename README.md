@@ -1,6 +1,6 @@
 # Login Terminal Project
 ## Description:
-Terminal login interface with encrypted password storage and firther funcionalities.
+Terminal login interface with encrypted password storage and further funcionalities.
 ## Functionalities:
 -login existing user
 
@@ -14,10 +14,14 @@ Terminal login interface with encrypted password storage and firther funcionalit
 
 -password recovery
 
--locking account after 3 failed login attempt
+-locking account after three failed login attempt
 
 -logging out user after set time
 
 -logging last login time
 
 -checking the user's internet connection
+
+## Manual:
+Run _terminal_login.py_ from shell:
+"python3 terminal_login.py"
