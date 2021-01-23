@@ -24,5 +24,6 @@ Terminal login interface with encrypted password storage and further funcionalit
 
 ## Manual:
 Run **_terminal_login.py_** from shell:
-
+'''
 python3 terminal_login.py
+'''
