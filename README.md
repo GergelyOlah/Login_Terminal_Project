@@ -4,7 +4,7 @@ Terminal login interface with encrypted password storage and further funcionalit
 ## Functionalities:
 -login existing user
 
--creating new user account
+* creating new user account
 
 -checking compliance of username and password upon creating new account (e.g. length, characters, uniqueness)
 
@@ -23,4 +23,4 @@ Terminal login interface with encrypted password storage and further funcionalit
 -checking the user's internet connection
 
 ## Manual:
-Run **_terminal_login.py_** from shell with python 3.*.
+Run **_terminal_login.py_** from shell with python 3.
