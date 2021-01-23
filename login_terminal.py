@@ -3,6 +3,7 @@ import input_check
 import csv
 import ceaser_cypher
 import login_time
+import network_check
 from datetime import datetime
 
 def login_query():
@@ -13,13 +14,15 @@ def login_query():
 
         if user_input in "Ss":
             login_existing()
+            network_check.result()
             break
         elif user_input in "Cc":
             create_new()
             login_existing()
+            network_check.result()
             break
         else:
-            print("Incorrect input. Type S for signing in or C for creating a enw account.")
+            print("Incorrect input. Type S for signing in or C for creating a new account.")
             continue
 
 def login_existing():
@@ -46,7 +49,7 @@ def login_existing():
             # Check if account is locked:
             if entry_data == True and login_time.check(username, login_attempt_time, "user_data.csv") == True:
                 login_time.update(username, login_attempt_time, "user_data.csv", "N")
-                return print("Hi {}. You are logged in successfully.\n".format(username))
+                return print("\nHi {}. You are logged in successfully.".format(username))
 
             elif entry_data == True and login_time.check(username, login_attempt_time, "user_data.csv") != True:
                 return print("Your account is still locked due to too many failed login attempts. Please try again later or contact admin.")
