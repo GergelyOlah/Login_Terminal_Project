@@ -1,6 +1,9 @@
-# Login_Terminal_Project
+# Login Terminal Project
+## Description:
+Terminal login interface with encrypted password storage and firther funcionalities.
 ## Functionalities:
 -login existing user
+
 -creating new user account
 -checking compliance of username and password upon creating new account (e.g. length, characters, uniqueness)
 -storing password encrypted offline
