@@ -2,7 +2,8 @@
 import input_check
 import csv
 import ceaser_cypher
-import datetime
+import login_time
+from datetime import datetime
 
 def login_query():
     """Login interface for signing into websites. Prompts the user for login details."""
@@ -24,30 +25,40 @@ def login_query():
 def login_existing():
     """Signing in existing users."""
 
-    entry = False
+    entry_data = False
     login_attempts = 1
 
-    # Check username and password in database:
+    # Ask for login detials:
     while True:
         if login_attempts <= 3:
             username = str(input("Name:\n"))
             password = str(input("Password:\n"))
+            login_attempt_time = datetime.today().replace(microsecond=0)
 
+            # Check username and password in database:
             with open ("user_data.csv", "r") as f_csv:
                 user_reader = csv.DictReader(f_csv)
                 for row in user_reader:
                     if username == row["username"] and password == ceaser_cypher.ceaser_cypher_decoder(row["password"]):
-                        entry = True
+                        entry_data = True
                         break
-            if entry == True:
-                login_time = datetime.datetime.today()
+
+            # Check if account is locked:
+            if entry_data == True and login_time.check(username, login_attempt_time, "user_data.csv") == True:
+                login_time.update(username, login_attempt_time, "user_data.csv", "N")
                 return print("Hi {}. You are logged in successfully.\n".format(username))
+
+            elif entry_data == True and login_time.check(username, login_attempt_time, "user_data.csv") != True:
+                return print("Your account is still locked due to too many failed login attempts. Please try again later or contact admin.")
+
             else:
                 print("We cannot find this username or password.")
+                login_time.update(username, login_attempt_time, "user_data.csv", "N")
                 login_attempts += 1
                 continue
         else:
-            return print("You have failed to sign in three times. Your account is locked now. Please contact admin.")
+            login_time.update(username, login_attempt_time, "user_data.csv", "Y")
+            return print("You have failed to sign in three times. Your account is locked now for two minutes. Please try again later or contact admin.")
 
 def create_new():
     """Create new user account and store password."""
@@ -75,11 +86,11 @@ def create_new():
     email = str(input("What is your email address? \n"))
 
     # Time of account creation:
-    initiation = datetime.datetime.today()
+    initiation = datetime.today().replace(microsecond=0)
 
-    # Save data:
+    # Save data into database:
     with open ("user_data.csv", "a") as f_csv:
-        user_data = [username, password, email, initiation]
+        user_data = [username, password, email, initiation, initiation, "N"]
         user_writer = csv.writer(f_csv)
         user_writer.writerow(user_data)
 
