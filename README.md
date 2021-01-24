@@ -2,7 +2,7 @@
 
 ![Successful](/Images/Login_Terminal_Failed_Attempt.png)
 
-![Failed](/Images/Login_Terminal_Successful_Attempt.png)
+![Failed](/Images/Login_Terminal_Successful_Attempt .png)
 
 ## Description:
 Terminal login interface with encrypted password storage and further funcionalities.
