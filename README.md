@@ -1,4 +1,9 @@
 # Login Terminal Project
+
+![Successful](/Images/Login_Terminal_Failed_Attempt.png)
+
+![Failed](/Images/Login_Terminal_Successful_Attempt .png)
+
 ## Description:
 Terminal login interface with encrypted password storage and further funcionalities.
 ## Functionalities:
@@ -23,8 +28,8 @@ Terminal login interface with encrypted password storage and further funcionalit
 * checking the user's internet connection
 
 ## Manual:
-Run **_terminal_login.py_** from shell with python 3.
+Run **_terminal_login.py_** from shell with _Python Version3+_.
 
 ```
-root@pc01:/$ ./terminal_login.py
+    python3 terminal_login.py
 ``` 

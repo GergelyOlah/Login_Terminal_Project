@@ -48,4 +48,4 @@ def update(username, time, database, result):
         user_writer = csv.writer(f_csv)
         user_writer.writerows(user_data_list)
 
-update("Ursula", datetime.datetime.today(), "user_data.csv", "Y")
+#update("Ursula", datetime.datetime.today(), "user_data.csv", "Y")
